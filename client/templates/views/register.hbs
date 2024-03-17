@@ -14,7 +14,7 @@
 
 
         <div class="wrapper">
-            <form action="/signup" method="post">
+            <form action="/signup" method="post"onsubmit="return validate()" >
                 <h1>Registration</h1>
 
                 <div class="input-box">
@@ -53,24 +53,45 @@
 
                     </div>
                     <div class="input-field">
-                        <input type="password" name="confirm_password" placeholder="Confirm Password " required>
+                        <input type="password" name="confirm_password" placeholder="Confirm Password " required onkeyup="check(this)">
                         <i class='bx bxs-lock-alt' ></i>
+                        <error id="alert"></error>
                     </div>
                 </div>
 
                 <label><input type="checkbox">I hereby declare that the above information
                 provided is true and correct to the best of my knowledge</label>
 
-                <button onclick="res()" type="submit" href="/" class="btn">Register</button>
+                <button onclick="alert('You have successfully registered')" type="submit" href="/" class="btn">Register</button>
             </form>
         </div>
     </body>
     <script>
-        function res(password,confirm_password){
-            if(password!=confirm_password){
-                alert("Password mismatched!!");
+        var password = document.getElementById('password');
+        var flag = 1;
+        function check(elem){
+            if(elem.value.length > 0){
+                if(elem.value !== password.value){
+                    document.getElementById('alert').innerText = "Confirm password doesn't match";
+                    flag=0;
+                }
+                else{
+                    document.getElementById('alert').innerText = "";
+                    flag=1;
+                }
             }
-            alert("Account Created Successfully !!");
+            else{
+                document.getElementById('alert').innerText = "Please enter confirm password";
+                flag=0;
+            }
+        }
+
+        function validate(){
+            if(flag==1){
+                return true;
+            }else{
+                return false;
+            }
         }
     </script>
 </html>

@@ -47,9 +47,6 @@ app.post("/signup",async(req,res)=>{
         password:req.body.password,
         confirm_password:req.body.confirm_password,
     }
-    if(req.body.password===req.body.confirm_password){
-        res.send("Password mismatched!!");
-    }
     const existingUser = await collection.LoginModel.findOne({email: data.email});
     if(existingUser){
         res.send("User already exists.Please enter different email")
@@ -59,9 +56,7 @@ app.post("/signup",async(req,res)=>{
         data.password = hashedPassword;
         const userdata = await collection.LoginModel.insertMany(data);
         console.log(userdata);
-        res.render("home");
-       
-       
+        res.render("home"); 
     }
 });
 
@@ -77,6 +72,7 @@ app.post("/login", async(req,res)=>{
         }else{
             req.send("wrong password");
         }
+        
     }catch{
         res.send("wrong Details");
     }
@@ -93,4 +89,5 @@ app.post("/ambulance",async(req,res)=>{
 
     const userdata = await collection.AmbulanceModel.insertMany(data);
         console.log(userdata);
+    res.render("home");
 });
