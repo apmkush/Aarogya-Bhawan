@@ -14,17 +14,17 @@
 
 
         <div class="wrapper">
-            <form action="">
+            <form action="/signup" method="post">
                 <h1>Registration</h1>
 
                 <div class="input-box">
                     <div class="input-field">
-                        <input type="text" placeholder="Full Name" required>
+                        <input type="text" name="full_name" placeholder="Full Name" required>
                         <i class='bx bxs-user'></i>
 
                     </div>
                     <div class="input-field">
-                        <input list="gender" placeholder="Gender">
+                        <input list="gender" name="gender" placeholder="Gender">
                         <datalist id="gender">
                           <option value="Male">
                           <option value="Female">
@@ -36,24 +36,24 @@
 
                 <div class="input-box">
                     <div class="input-field">
-                        <input type="email" placeholder="Email" required>
+                        <input type="email" name="email" placeholder="Email" required>
                         <i class='bx bxs-envelope' ></i>
 
                     </div>
                     <div class="input-field">
-                        <input type="number" placeholder="Phone Number" required>
+                        <input type="number" name="phone" placeholder="Phone Number" required>
                         <i class='bx bxs-phone' ></i>
                     </div>
                 </div>
 
                 <div class="input-box">
                     <div class="input-field">
-                        <input type="password" placeholder="Password" required>
+                        <input type="password" name="password" placeholder="Password" required>
                         <i class='bx bxs-lock-alt' ></i>
 
                     </div>
                     <div class="input-field">
-                        <input type="password" placeholder="Confirm Password " required>
+                        <input type="password" name="confirm_password" placeholder="Confirm Password " required>
                         <i class='bx bxs-lock-alt' ></i>
                     </div>
                 </div>
@@ -61,8 +61,16 @@
                 <label><input type="checkbox">I hereby declare that the above information
                 provided is true and correct to the best of my knowledge</label>
 
-                <button type="submit" class="btn">Register</button>
+                <button onclick="res()" type="submit" href="/" class="btn">Register</button>
             </form>
         </div>
     </body>
+    <script>
+        function res(password,confirm_password){
+            if(password!=confirm_password){
+                alert("Password mismatched!!");
+            }
+            alert("Account Created Successfully !!");
+        }
+    </script>
 </html>
