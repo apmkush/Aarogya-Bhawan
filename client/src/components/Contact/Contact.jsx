@@ -22,7 +22,7 @@ export default function Contact() {
         setFormInput((prev)=>({...prev,...obj}));
     };
     const handleSubmit=()=>{
-        axios.post('http://localhost:5000/sendData',formInput,{
+        axios.post('http://localhost:5000/sendContact',formInput,{
             headers:{
                 'Content-Type':'application/json'
             }

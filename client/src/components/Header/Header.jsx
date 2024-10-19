@@ -77,12 +77,12 @@ export default function Header() {
 
                     {/* Login Button (Responsive, Always Visible) */}
                     <div className="flex items-center lg:ml-8">
-                        <Link
+                        <NavLink
                             to="/login"
                             className="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2.5 transition duration-200"
                         >
                             Login
-                        </Link>
+                        </NavLink>
                     </div>
                 </div>
             </nav>

@@ -23,6 +23,26 @@ const contactSchema=new mongoose.Schema({
         require:true
     }
 });
+const userSchema=new mongoose.Schema({
+    name:{
+        type:String,
+        require:true
+    },
+    email:{
+        type:String,
+        require:true
+    },
+    phone:{
+        type:Number,
+        require:true
+    },
+    password: {
+        type: String,
+        required: true
+    },
+});
 
 const ContactModel=mongoose.model("Contact",contactSchema);
-export{ContactModel};
+const UserModel=mongoose.model("User",userSchema);
+
+export{ContactModel,UserModel};
