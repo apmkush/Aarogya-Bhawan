@@ -10,6 +10,7 @@ import Contact from './components/Contact/Contact.jsx'
 import User from './components/User/User.jsx'
 import Github from './components/Github/Github.jsx'
 import Login from './components/Login/login.jsx'
+import Singup from './components/Singup/singup.jsx'
 
 
 
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path : "login",
         element : <Login/>
+      },
+      {
+        path : "signup",
+        element : <Singup/>
       }
     ]
   }

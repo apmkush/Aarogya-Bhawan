@@ -23,6 +23,31 @@ app.post("/sendContact",async(req,res)=>{
     console.log(userdata);
 })
 
+app.post("/sendSingup",async(req,res)=>{
+    const data = {
+        name:req.body.name,
+        email:req.body.email,
+        phone:req.body.tel,
+        password:req.body.password,
+        confirm_password:req.body.confirm_password,
+    };
+    try{
+        const existingUser = await UserModel.findOne({email: data.email});
+        if(existingUser){
+            res.json({message:"User already exists.Please enter different email"});
+        }else{
+            const saltRounds = 10;
+            const hashedPassword = await bcrypt.hash(data.password,saltRounds);
+            data.password = hashedPassword;
+            const userdata = await UserModel.insertMany(data);
+            console.log(userdata);
+            res.json({message:"Singup successful!!"});
+        }
+    }catch{
+        res.json({message:"Something went wrong!!"});
+    }
+})
+
 app.post("/sendLogin",async(req,res)=>{
     const data={
         email:req.body.email,
@@ -39,8 +64,8 @@ app.post("/sendLogin",async(req,res)=>{
         //     console.log("user found");
         //     console.log(check.password);
         // }
-        // const isPasswordMatch = await bcrypt.compare(req.body.password,check.password);
-        if(check.password==req.body.password){
+        const isPasswordMatch = await bcrypt.compare(req.body.password,check.password);
+        if(isPasswordMatch){
             // res.render("home");
             res.json({message:"Login successful!!"});
             console.log("Login successful");
@@ -54,7 +79,6 @@ app.post("/sendLogin",async(req,res)=>{
     }
     console.log(data);
 })
-
 
 app.listen(5000,()=>{
     console.log("app is running");
