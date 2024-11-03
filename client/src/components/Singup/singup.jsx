@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import axios, { Axios } from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Singup(){
     const [message, setMessage] = useState('');
+    const navigate = useNavigate();
     const [formInput,setFormInput]=useState({
         name:"",
         email:"",
@@ -21,16 +25,37 @@ export default function Singup(){
 
     const handleSubmit=async(e)=>{
         e.preventDefault();
-        try{
+        if(formInput.name==""||formInput.email==""||formInput.password==""||formInput.tel==""||formInput.confirm_password==""){
+            toast.error("Please fill all credentials");
+        }
+        else try{
             const response=await axios.post('http://localhost:5000/sendSingup',formInput,{
                 headers:{
                     'Content-Type':'application/json'
                 }
             });
+            if(response.data.success){
+                toast.success('SingUp successful!!', {
+                    position: "top-center",
+                    autoClose: 3000, // Auto-close after 3 seconds
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+                
+            }else{
+                toast.error(response.data.message);
+            }
             setMessage(response.data.message);
-        }catch(error){
+        }
+        catch(error){
             setMessage("An error has occured!!");
         }
+        setTimeout(() => {
+            navigate('/');
+        }, 3000);
     };
 
     return (
@@ -102,6 +127,7 @@ export default function Singup(){
             />
         </div>
         {message && <p>{message}</p>}
+        <ToastContainer />
         <button
             type="submit"
             onClick={handleSubmit}
